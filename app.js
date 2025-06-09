@@ -1,12 +1,18 @@
 const express = require("express");
 const app = express();
 const port = 8080;
+const nunjucks = require("nunjucks");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app,
+});
+
+app.get("/", function (req, res) {
+  res.render("home.njk");
 });
 
 app.listen(port, () => {
