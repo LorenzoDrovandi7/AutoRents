@@ -1,0 +1,15 @@
+{% extends "base.njk" %}
+
+{% block title %}Listado de autos{% endblock %}
+
+{% block content %}
+  <h1>Autos registrados</h1>
+  <ul>
+    {% for car in cars %}
+      <img src="/images/{{ car.image }}" alt="{{ car.brand }} {{ car.model }}">
+      <li>{{ car.brand }} {{ car.model }} {{car.year}} {{car.km}} {{car.color}} {{car.air_conditioning}} {{car.transmission}} {{ car.passengers }} {{ car.image }} </li>
+    {% else %}
+      <li>No hay autos registrados.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
