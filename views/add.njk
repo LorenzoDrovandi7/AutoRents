@@ -1,0 +1,96 @@
+{% extends "base.njk" %}
+
+{% block title %}Add New Car{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title">Add New Car</h1>
+
+    <form action="/cars/add" method="POST" enctype="multipart/form-data">
+      <div class="field">
+        <label class="label">Brand</label>
+        <div class="control">
+          <input class="input" type="text" name="brand" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Model</label>
+        <div class="control">
+          <input class="input" type="text" name="model" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Year</label>
+        <div class="control">
+          <input class="input" type="number" name="year" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Color</label>
+        <div class="control">
+          <input class="input" type="text" name="color" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Kilometers</label>
+        <div class="control">
+          <input class="input" type="number" name="km" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Air Conditioning</label>
+        <div class="control">
+          <div class="select">
+            <select name="air_conditioning">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Transmission</label>
+        <div class="control">
+          <div class="select">
+            <select name="transmission" required>
+              <option value="" disabled selected>Select transmission</option>
+              <option value="manual">Manual</option>
+              <option value="automatic">Automatic</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Passengers</label>
+        <div class="control">
+          <input class="input" type="number" name="passengers" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Image (upload)</label>
+        <div class="control">
+          <input class="input" type="file" name="image" required>
+        </div>
+      </div>
+
+      <div class="field is-grouped mt-4">
+        <div class="control">
+          <button type="submit" class="button is-success">Add Car</button>
+        </div>
+        <div class="control">
+          <a href="/cars" class="button is-light">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

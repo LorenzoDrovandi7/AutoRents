@@ -17,6 +17,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+router.get("/add", (req, res) => {
+  res.render("add.njk");
+});
+
 router.get("/:id", (req, res) => {
   const carId = req.params.id;
 
@@ -74,6 +78,23 @@ router.delete("/:id", (req, res) => {
     }
     res.status(200).json({ message: "Car deleted successfully" });
   });
+});
+
+router.post("/add", upload.single("image"), (req, res) => {
+  const { brand, model, year, color, km, air_conditioning, transmission, passengers } = req.body;
+  const image = req.file ? req.file.filename : null;
+
+  db.run(
+    `INSERT INTO cars (brand, model, year, color, km, air_conditioning, transmission, passengers, image)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [brand, model, year, color, km, air_conditioning ? 1 : 0, transmission, passengers, image],
+    function (err) {
+      if (err) {
+        return res.status(500).send("Error adding car.");
+      }
+      res.redirect(`/cars/${this.lastID}`);
+    }
+  );
 });
 
 module.exports = router;
