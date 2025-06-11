@@ -65,4 +65,15 @@ router.post("/edit/:id", upload.single("image"), (req, res) => {
   );
 });
 
+router.delete("/:id", (req, res) => {
+  const carId = req.params.id;
+
+  db.run("DELETE FROM cars WHERE id = ?", [carId], (err) => {
+    if (err) {
+      return res.status(500).json({ error: "Error deleting car" });
+    }
+    res.status(200).json({ message: "Car deleted successfully" });
+  });
+});
+
 module.exports = router;
