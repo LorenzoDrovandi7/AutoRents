@@ -3,9 +3,11 @@ const app = express();
 const port = 8080;
 const nunjucks = require("nunjucks");
 const db = require("./database/db");
+const carRoutes = require("./routes/cars");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+app.use("/cars", carRoutes);
 
 nunjucks.configure("views", {
   autoescape: true,

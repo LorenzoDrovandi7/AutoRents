@@ -1,0 +1,94 @@
+{% extends "base.njk" %}
+
+{% block title %}Edit Car{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title">Edit Car</h1>
+
+    <form action="/cars/edit/{{ car.id }}" method="POST" enctype="multipart/form-data">
+      <div class="field">
+        <label class="label">Brand</label>
+        <div class="control">
+          <input class="input" type="text" name="brand" value="{{ car.brand }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Model</label>
+        <div class="control">
+          <input class="input" type="text" name="model" value="{{ car.model }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Year</label>
+        <div class="control">
+          <input class="input" type="number" name="year" value="{{ car.year }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Color</label>
+        <div class="control">
+          <input class="input" type="text" name="color" value="{{ car.color }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Kilometers</label>
+        <div class="control">
+          <input class="input" type="number" name="km" value="{{ car.km }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Air Conditioning</label>
+        <div class="control">
+          <div class="select">
+            <select name="air_conditioning">
+              <option value="1" {% if car.air_conditioning %}selected{% endif %}>Yes</option>
+              <option value="0" {% if not car.air_conditioning %}selected{% endif %}>No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Transmission</label>
+        <div class="control">
+          <input class="input" type="text" name="transmission" value="{{ car.transmission }}" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Passengers</label>
+        <div class="control">
+          <input class="input" type="number" name="passengers" value="{{ car.passengers }}" required>
+        </div>
+      </div>
+      <input type="hidden" name="currentImage" value="{{ car.image }}">
+        <div class="field">
+    <label class="label">Image (upload a new one)</label>
+    <div class="control">
+      <input class="input" type="file" name="image">
+    </div>
+    {% if car.image %}
+      <p class="help">Current: <img src="/uploads/{{ car.image }}" width="150" /></p>
+    {% endif %}
+  </div>
+
+
+      <div class="field is-grouped mt-4">
+        <div class="control">
+          <button type="submit" class="button is-success">Save Changes</button>
+        </div>
+        <div class="control">
+          <a href="/cars/{{ car.id }}" class="button is-light">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

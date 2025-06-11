@@ -1,0 +1,29 @@
+{% extends "base.njk" %}
+
+{% block title %}{{ car.brand }} {{ car.model }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">{{ car.brand }} {{ car.model }}</h1>
+    <div class="box grid">
+        <img class="car-image-view" src="/uploads/{{ car.image }}" alt="{{ car.brand }} {{ car.model }}">
+      <div class="content m-5">
+        <p class="subtitle is-3"><strong>Year:</strong> {{ car.year }}</p>
+        <p class="subtitle is-3"><strong>Color:</strong> {{ car.color }}</p>
+        <p class="subtitle is-3"><strong>Kilometers:</strong> {{ car.km }} km</p>
+        <p class="subtitle is-3"><strong>Air conditioning:</strong>
+                    {% if car.air_conditioning %}
+                     Yes
+                    {% else %}
+                      No
+                    {% endif %}
+                  </p>
+        <p class="subtitle is-3"><strong>Transmission:</strong> {{ car.transmission }}</p>
+        <p class="subtitle is-3"><strong>Passengers:</strong> {{ car.passengers }}</p>
+      </div>
+    </div>
+    <a href="/cars" class="button is-link">Back to list</a>
+  </div>
+</section>
+{% endblock %}
