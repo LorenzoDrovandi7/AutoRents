@@ -21,6 +21,16 @@ router.get("/add", (req, res) => {
   res.render("add.njk");
 });
 
+router.get("/", (req, res) => {
+  db.all("SELECT * FROM cars", [], (err, rows) => {
+    if (err) {
+      return res.status(500).send("Error retrieving cars from database");
+    }
+    console.log("Cars retrieved from database:", rows);
+    res.render("cars.njk", { cars: rows });
+  });
+});
+
 router.get("/:id", (req, res) => {
   const carId = req.params.id;
 

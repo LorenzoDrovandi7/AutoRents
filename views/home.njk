@@ -1,7 +1,14 @@
 {% extends "base.njk" %}
 
-{% block title %}Inicio - AutoRents{% endblock %}
+{% block title %}Home - AutoRents{% endblock %}
 
 {% block content %}
-  <h2 class="title">Welcome to AutoRents!</h2>
+    <div class="container">
+      <figure class="has-text-centered pt-6 logo-figure">
+        <img src="/assets/logo.png" class="logo-image" alt="AutoRents Logo">
+      </figure>
+      <div class="control is-flex is-justify-content-center mt-6">
+          <a href="/cars" class="button is-medium is-light">See cars</a>
+        </div>
+    </div>
 {% endblock %}

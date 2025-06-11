@@ -7,3 +7,13 @@ body {
   height: auto;
   border-radius: 1vh;
 }
+
+.logo-figure {
+  margin-top: 12rem;
+}
+
+.logo-image {
+  width: 50%;
+  height: auto;
+  border-radius: 1vh;
+}
