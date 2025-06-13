@@ -4,10 +4,12 @@ const port = 8080;
 const nunjucks = require("nunjucks");
 const db = require("./database/db");
 const carRoutes = require("./routes/cars");
+const clientsRoutes = require("./routes/clients");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use("/cars", carRoutes);
+app.use("/clients", clientsRoutes);
 
 nunjucks.configure("views", {
   autoescape: true,
