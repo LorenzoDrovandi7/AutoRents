@@ -118,4 +118,77 @@ db.run(
   }
 );
 
+db.run(
+  `
+  CREATE TABLE IF NOT EXISTS clients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    type_of_document TEXT NOT NULL,
+    document TEXT NOT NULL,
+    nationality TEXT NOT NULL,
+    address TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    birthday TEXT NOT NULL
+  )
+`,
+  (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+
+    db.get("SELECT COUNT(*) AS count FROM clients", (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+
+      if (row.count === 0) {
+        const seedClients = [
+          {
+            name: "Lorenzo",
+            surname: "Drovandi",
+            type_of_document: "DNI",
+            document: "12345678",
+            nationality: "Argentinian",
+            address: "Calle Falsa 123",
+            phone: "1122334455",
+            email: "lorenzodrovandi17@gmail.com",
+            birthday: "2003-07-17",
+          },
+        ];
+
+        const insertQuery = `
+          INSERT INTO clients (name, surname, type_of_document, document, nationality, address, phone, email, birthday)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        seedClients.forEach((client) => {
+          db.run(
+            insertQuery,
+            [
+              client.name,
+              client.surname,
+              client.type_of_document,
+              client.document,
+              client.nationality,
+              client.address,
+              client.phone,
+              client.email,
+              client.birthday,
+            ],
+            (err) => {
+              if (err) {
+                console.error("Error inserting seed client:", err.message);
+              }
+            }
+          );
+        });
+
+        console.log("Datos semilla insertados en la tabla clients.");
+      }
+    });
+  }
+);
+
 module.exports = db;
