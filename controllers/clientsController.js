@@ -36,7 +36,10 @@ exports.postAddClient = (req, res) => {
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [name, surname, type_of_document, document, nationality, address, phone, email, birthday],
     function (err) {
-      if (err) return res.status(500).send("Error adding client to database");
+      if (err) {
+        console.error("Error adding client:", err.message);
+        return res.status(500).send("Error adding client to database");
+      }
       res.redirect(`/clients/${this.lastID}`);
     }
   );

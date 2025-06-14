@@ -1,0 +1,25 @@
+{% extends "base.njk" %}
+
+{% block title %}{{ client.name }} {{ client.surname }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-1">{{ car.brand }} {{ car.model }}</h1>
+    <div class="box grid">
+      <div class="content m-5">
+        <h1 class="title is-1 pt-6 pb-6">{{ client.name }} {{ client.surname }}</h1>
+        <p class="subtitle is-3"><strong>Document Type:</strong> {{ client.type_of_document }}</p>
+        <p class="subtitle is-3"><strong>Document Number:</strong> {{ client.document }}</p>
+        <p class="subtitle is-3"><strong>Nationality:</strong> {{ client.nationality }}</p>
+        <p class="subtitle is-3"><strong>Address:</strong> {{ client.address }}</p>
+        <p class="subtitle is-3"><strong>Phone:</strong> {{ client.phone }}</p>
+        <p class="subtitle is-3"><strong>Email:</strong> {{ client.email }}</p>
+        <p class="subtitle is-3"><strong>Birthday:</strong> {{ client.birthday }}</p>
+      </div>
+    </div>
+    <a href="/clients" class="button is-link">Back to list</a>
+  </div>
+</section>
+{% endblock %}
+
