@@ -191,4 +191,84 @@ db.run(
   }
 );
 
+db.run(
+  `
+  CREATE TABLE IF NOT EXISTS rents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    car_id INTEGER NOT NULL,
+    client_id INTEGER NOT NULL,
+    price_per_day REAL NOT NULL,
+    start_date TEXT NOT NULL,
+    end_date TEXT NOT NULL,
+    total_price REAL NOT NULL,
+    payment_method TEXT NOT NULL CHECK(payment_method IN ('cash', 'card')),
+    was_paid INTEGER NOT NULL CHECK(was_paid IN (0, 1)),
+    FOREIGN KEY (car_id) REFERENCES cars(id),
+    FOREIGN KEY (client_id) REFERENCES clients(id)
+  )
+`,
+  (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+
+    db.get("SELECT COUNT(*) AS count FROM rents", (err, row) => {
+      if (err) {
+        return console.error(err.message);
+      }
+
+      if (row.count === 0) {
+        const seedRents = [
+          {
+            car_id: 1,
+            client_id: 1,
+            price_per_day: 50.0,
+            start_date: "2025-06-10",
+            end_date: "2025-06-15",
+            total_price: 50.0 * 5,
+            payment_method: "cash",
+            was_paid: 1,
+          },
+        ];
+
+        const insertQuery = `
+          INSERT INTO rents (
+            car_id,
+            client_id,
+            price_per_day,
+            start_date,
+            end_date,
+            total_price,
+            payment_method,
+            was_paid
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+
+        seedRents.forEach((rent) => {
+          db.run(
+            insertQuery,
+            [
+              rent.car_id,
+              rent.client_id,
+              rent.price_per_day,
+              rent.start_date,
+              rent.end_date,
+              rent.total_price,
+              rent.payment_method,
+              rent.was_paid,
+            ],
+            (err) => {
+              if (err) {
+                console.error("Error inserting seed rent:", err.message);
+              }
+            }
+          );
+        });
+
+        console.log("Datos semilla insertados en la tabla rents.");
+      }
+    });
+  }
+);
+
 module.exports = db;
