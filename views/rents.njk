@@ -1,0 +1,52 @@
+{% extends "base.njk" %}
+
+{% block title %}Rents List{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">All Rents</h1>
+    <a class="button is-primary mb-4" href="/rents/add">Add New Rent</a>
+
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Car ID</th>
+          <th>Client ID</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rent in rents %}
+        <tr>
+          <td>{{ rent.id }}</td>
+          <td>{{ rent.car_id }}</td>
+          <td>{{ rent.client_id }}</td>
+          <td>{{ rent.start_date }}</td>
+          <td>{{ rent.end_date }}</td>
+          <td>${{ rent.total_price }}</td>
+          <td>
+  {% if rent.was_paid %}
+    Yes
+  {% else %}
+    No
+  {% endif %}
+</td>
+
+          <td>
+            <a class="button is-small is-info" href="/rents/{{ rent.id }}">View</a>
+            <a class="button is-small is-warning" href="/rents/{{ rent.id }}/edit">Edit</a>
+            <button onclick="deleteRent({{ rent.id }})" class="button is-small is-danger">Delete</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
