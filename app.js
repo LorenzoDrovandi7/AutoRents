@@ -5,11 +5,13 @@ const nunjucks = require("nunjucks");
 const db = require("./database/db");
 const carRoutes = require("./routes/cars");
 const clientsRoutes = require("./routes/clients");
+const rentsRoutes = require("./routes/rents");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use("/cars", carRoutes);
 app.use("/clients", clientsRoutes);
+app.use("/rents", rentsRoutes);
 
 nunjucks.configure("views", {
   autoescape: true,
