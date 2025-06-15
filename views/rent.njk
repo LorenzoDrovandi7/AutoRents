@@ -1,0 +1,28 @@
+{% extends "base.njk" %}
+
+{% block title %}Rent #{{ rent.id }}{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Rent Details</h1>
+    <div class="box">
+      <p><strong>Car ID:</strong> {{ rent.car_id }}</p>
+      <p><strong>Client ID:</strong> {{ rent.client_id }}</p>
+      <p><strong>Price per Day:</strong> ${{ rent.price_per_day }}</p>
+      <p><strong>Start Date:</strong> {{ rent.start_date }}</p>
+      <p><strong>End Date:</strong> {{ rent.end_date }}</p>
+      <p><strong>Total Price:</strong> ${{ rent.total_price }}</p>
+      <p><strong>Payment Method:</strong> {{ rent.payment_method }}</p>
+      <p><strong>Was paid:</strong> 
+  {% if rent.was_paid %}
+    Yes
+  {% else %}
+    No
+  {% endif %}
+</p>
+    </div>
+    <a class="button is-link" href="/rents">Back to list</a>
+  </div>
+</section>
+{% endblock %}
