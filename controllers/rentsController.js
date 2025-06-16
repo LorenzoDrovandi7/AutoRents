@@ -1,4 +1,5 @@
 const db = require("../database/db");
+const { validateRentAvailability } = require("../utils/rentValidator");
 
 exports.getAllRents = (req, res) => {
   db.all("SELECT * FROM rents", [], (err, rows) => {
@@ -62,13 +63,33 @@ exports.deleteRent = (req, res) => {
 exports.postAddRent = (req, res) => {
   const { car_id, client_id, price_per_day, start_date, end_date, total_price, payment_method, was_paid } = req.body;
 
-  db.run(
-    `INSERT INTO rents (car_id, client_id, price_per_day, start_date, end_date, total_price, payment_method, was_paid)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    [car_id, client_id, price_per_day, start_date, end_date, total_price, payment_method, was_paid],
-    function (err) {
-      if (err) return res.status(500).send("Error adding rent.");
-      res.redirect(`/rents/${this.lastID}`);
+  validateRentAvailability(car_id, start_date, end_date, (err, available) => {
+    if (err) {
+      console.error("Error validating rent availability:", err);
+      return res.status(500).render("rentError.njk", {
+        message: "Internal error while validating availability. Please try again later.",
+      });
     }
-  );
+
+    if (!available) {
+      return res.status(400).render("rentError.njk", {
+        message: "The car is already rented for those dates. Please choose a different date range or car.",
+      });
+    }
+
+    db.run(
+      `INSERT INTO rents (car_id, client_id, price_per_day, start_date, end_date, total_price, payment_method, was_paid)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [car_id, client_id, price_per_day, start_date, end_date, total_price, payment_method, was_paid],
+      function (err) {
+        if (err) {
+          console.error("Error al insertar renta:", err.message);
+          return res.status(500).render("rentError.njk", {
+            message: "There was an error saving the rental. Please try again.",
+          });
+        }
+        res.redirect(`/rents/${this.lastID}`);
+      }
+    );
+  });
 };
