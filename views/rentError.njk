@@ -1,0 +1,15 @@
+{% extends "base.njk" %}
+
+{% block title %}Error creating rent{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="notification is-danger">
+      <strong>Error:</strong> {{ message }}
+    </div>
+
+    <a href="/rents/add" class="button is-link mt-4">Return</a>
+  </div>
+</section>
+{% endblock %}
