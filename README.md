@@ -26,8 +26,11 @@ AutoRents is a CRUD application that allows you to manage both a fleet of vehicl
 
 ## C4 Diagrams
 
-![autoRentsL1 drawio](https://github.com/user-attachments/assets/6fd7e127-711f-4798-a405-42b0a8579a07)
+![autoRentsL1 drawio](https://github.com/user-attachments/assets/979e0822-ffff-4556-9f2c-1516d7a4a52b)
 
-![AutoRentsL2 drawio](https://github.com/user-attachments/assets/cc2f8f6d-e7ec-49e6-8b5c-335ece1bf007)
 
-![AutoRentsL3 drawio](https://github.com/user-attachments/assets/a24c9dba-e783-4906-bc5a-07321ccadf20)
+![AutoRentsL2 drawio](https://github.com/user-attachments/assets/7af364e6-8117-43aa-a776-1d807ad45ea6)
+
+
+![AutoRentsL3 drawio](https://github.com/user-attachments/assets/c99d2e23-b319-414d-9607-828ab6f46c7d)
+
